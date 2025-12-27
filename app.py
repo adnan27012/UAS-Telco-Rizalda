@@ -3,18 +3,19 @@ import pandas as pd
 import joblib
 import numpy as np
 
-# 1. Konfigurasi Halaman (Beda Judul & Icon)
+# 1. Konfigurasi Halaman
 st.set_page_config(
     page_title="Customer Retention Analytics",
     page_icon="📊",
-    layout="centered" # Layout tengah (punyamu wide), biar beda
+    layout="centered"
 )
 
 # 2. Load Model
 try:
-    model = joblib.load('model_churn_Rizalda.pkl') # Pastikan nama file sama
+    # PASTIKAN NAMA FILE INI SAMA PERSIS DENGAN YANG DIUPLOAD
+    model = joblib.load('model_churn_Rizalda.pkl') 
 except FileNotFoundError:
-    st.error("Error: File 'model_churn_Rizalda.pkl' tidak ditemukan.")
+    st.error("Error: File 'model_churn_Rizalda.pkl' tidak ditemukan. Pastikan file model sudah diupload ke GitHub dengan nama yang sesuai.")
     st.stop()
 
 # 3. Judul & Header
@@ -22,7 +23,7 @@ st.title("📊 Analisis Retensi Pelanggan")
 st.write("Gunakan aplikasi ini untuk mendeteksi potensi pelanggan berhenti berlangganan (Churn).")
 st.markdown("---")
 
-# 4. Form Input (Kita pakai Form biar user klik Submit dulu baru loading)
+# 4. Form Input
 with st.form("churn_form"):
     st.subheader("Profil Pelanggan")
     
@@ -42,7 +43,7 @@ with st.form("churn_form"):
         payment = st.selectbox("Metode Bayar", ["Electronic check", "Mailed check", "Bank transfer (automatic)", "Credit card (automatic)"])
         charges = st.number_input("Biaya Bulanan ($)", 0.0, 200.0, 50.0)
 
-    # Input Tambahan (Disembunyikan dalam expander biar rapi)
+    # Input Tambahan
     with st.expander("Fitur Tambahan (Opsional)"):
         tech_sup = st.selectbox("Tech Support", ["No internet service", "No", "Yes"])
         dev_prot = st.selectbox("Device Protection", ["No internet service", "No", "Yes"])
@@ -83,7 +84,7 @@ if submitted:
 
     st.markdown("---")
     
-    # Tampilan Hasil (Beda Style)
+    # Tampilan Hasil
     if prediction[0] == 1:
         st.error(f"⚠️ PERINGATAN: Risiko Churn Tinggi ({prob_churn:.1f}%)")
         st.progress(int(prob_churn))
