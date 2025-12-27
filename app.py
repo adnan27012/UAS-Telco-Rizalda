@@ -12,9 +12,9 @@ st.set_page_config(
 
 # 2. Load Model
 try:
-    model = joblib.load('model_churn_teman.pkl') # Pastikan nama file sama
+    model = joblib.load('model_churn_Rizalda.pkl') # Pastikan nama file sama
 except FileNotFoundError:
-    st.error("Error: File 'model_churn_teman.pkl' tidak ditemukan.")
+    st.error("Error: File 'model_churn_Rizalda.pkl' tidak ditemukan.")
     st.stop()
 
 # 3. Judul & Header
